@@ -18,7 +18,7 @@ class MemberRepositoryTest {
     @Autowired MemberRepository memberRepository;
     @Test
     @Transactional
-    @Rollback(false)
+//    @Rollback(false)
     public void testMember () throws  Exception{
         //given
         Member member = new Member();

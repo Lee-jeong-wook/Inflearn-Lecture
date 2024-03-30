@@ -1,11 +1,11 @@
-package com.example.jpashop.service
+package com.example.jpashop.service;
 
 //import jakarta.transaction.Transactional
 import com.example.jpashop.domain.item.Item;
 import com.example.jpashop.repository.ItemRepository;
-import lombok.NoArgsConstructor
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

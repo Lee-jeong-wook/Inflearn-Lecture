@@ -5,6 +5,7 @@ import com.example.jpashop.domain.Order;
 import com.example.jpashop.domain.OrderStatus;
 import com.example.jpashop.repository.OrderRepository;
 import com.example.jpashop.repository.OrderSearch;
+import com.example.jpashop.repository.OrderSimpleQueryDto;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Or;
@@ -22,6 +23,14 @@ import java.util.stream.Collectors;
  * Order -> Delivery
  * 
  * 무한 로딩이 걸리기 때문에 양방향 연관관계중 하나는 JSONIgnore 해주기
+ *
+ * 레파지토리는 엔티티용으로, 심플 쿼리는 따로 패키지 만들기
+ * 심플 쿼리로 하면 재사용성이 없음...
+ * 
+ * 1. 우선 엔티티를 DTO
+ * 2. 필여하면 페치 조인
+ * 3. 그래도 안되면 DTO로 직접 조회
+ * 4. 최후는 네이티브 SQL이나 스프링 JDBC로 SQL 작성
  */
 @RestController
 @RequiredArgsConstructor
@@ -50,6 +59,12 @@ public class OrderSimpleApiController {
         List<SimpleOrderDto> result = orders.stream().map(o -> new SimpleOrderDto(o)).collect(Collectors.toList());
         return result;
     }
+
+    @GetMapping("/api/v4/simple-orders")
+    public List<OrderSimpleQueryDto> ordersV4(){
+        return orderRepository.findorderDto();
+    }
+
 
     @Data
     static class SimpleOrderDto{
